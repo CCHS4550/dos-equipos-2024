@@ -19,6 +19,7 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final int kMechanismsControllerPort = 1;
   }
+  
   public static class MotorConstants {
     public static final int FRONT_LEFT = 0;
     public static boolean FRONT_LEFT_REVERSE = true;
@@ -31,6 +32,7 @@ public final class Constants {
     public static boolean BACK_RIGHT_REVERSE = false;
     public static final int DOOR = 4;
     public static boolean DOOR_REVERSE = false;
+    public static double DOOR_ENCODER = 0.0;
     public static final int intake1 = 5;
     public static final int intake2 = 6;
     public static final int screw = 7;
@@ -59,5 +61,10 @@ public final class Constants {
         public static final double DRIVE_MOTOR_METERS_PER_SECOND_CONVERSION_FACTOR = HORIZONTAL_DISTANCE_TRAVELLED_PER_MOTOR_REVOLUTION
                 / 60.0;
 
+  }
+
+  public static class MechanismPositions(){
+    public static final double DOOR_UP_POSITION = 0.0;
+    public static final double DOOR_DOWN_POSITION = (150.0/7.0 *(1/3)); //assuming it would be about 120 degrees
   }
 }

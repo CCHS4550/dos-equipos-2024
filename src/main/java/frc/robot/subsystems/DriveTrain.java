@@ -30,7 +30,7 @@ public class DriveTrain extends SubsystemBase{
         backDifferentialDrive.arcadeDrive(moveSpeed, turnSpeed);
     }
     public Command drive (double moveSpeed, double turnSpeed){
-        this.run (()-> difDrive(moveSpeed, turnSpeed));
+        return this.run (()-> difDrive(moveSpeed, turnSpeed));
     }
 
 

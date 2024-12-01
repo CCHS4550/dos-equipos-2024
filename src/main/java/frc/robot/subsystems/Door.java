@@ -64,6 +64,10 @@ public class Door extends SubsystemBase {
         door.set(-0.6); //maybe this is position idk
     }
 
+    public void manualDoor(double speed){
+        door.set(speed*0.65);
+    }
+
     public Command doorUp(){
         isUp = true;
         //added the until because maybe the thing is not running for as long
@@ -80,8 +84,13 @@ public class Door extends SubsystemBase {
         return this.run(()-> manualDoorUp());
     }
 
-    public Command maunalDownForTime(double time){
+    public Command manualDownForTime(double time){
         return this.run(()-> manualDoorDown()).withTimeout(time);
+    }
+
+
+    public Command doorManual(double speed){
+        return this.run(()->manualDoor(speed));
     }
 
     public Command manualDown(){

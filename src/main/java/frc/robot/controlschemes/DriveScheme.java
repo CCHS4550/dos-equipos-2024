@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.helpers.ControlScheme;
@@ -45,7 +46,7 @@ public class DriveScheme implements ControlScheme {
      */
     private static void configureButtons(DriveTrain driveTrain, Door door, int port) {
   RunCommand VroomDefaultVroom = new RunCommand(()->{
-      driveTrain.drive(controller.getLeftY(), controller.getRightX());
+      driveTrain.drive(controller.getLeftY(), controller.getLeftX());
 
     }, driveTrain);
 
@@ -60,7 +61,8 @@ public class DriveScheme implements ControlScheme {
     }
 
     controller.rightTrigger().onTrue(door.halt());
-
+    RunCommand doorRunCommand = new RunCommand(()->doorManual(controller.getRightY()));
+    door.setDefaultCommand(doorRunCommand);
     
         // // controller.b().onTrue(runOnce(() -> toggleFieldCentric()));
         // controller.a().onTrue(runOnce(() -> swerveDrive.zeroHeading()));
@@ -83,6 +85,11 @@ public class DriveScheme implements ControlScheme {
 
         
 
+    }
+
+    private static Command doorManual(double doorSpeed) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'doorManual'");
     }
 
     /**

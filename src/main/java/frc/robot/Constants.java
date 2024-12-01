@@ -21,12 +21,12 @@ public final class Constants {
   }
   
   public static class MotorConstants {
-    public static final int FRONT_LEFT = 04;
+    public static final int FRONT_LEFT = 4;
     public static boolean FRONT_LEFT_REVERSE = true;
     
     public static final int FRONT_RIGHT = 2;
     public static boolean FRONT_RIGHT_REVERSE = false;
-    public static final int BACK_LEFT = 5;
+    public static final int BACK_LEFT = 7;
     public static boolean BACK_LEFT_REVERSE = true;
     public static final int BACK_RIGHT = 1;
     public static boolean BACK_RIGHT_REVERSE = false;

@@ -30,12 +30,12 @@ import frc.robot.subsystems.Door;
 public class DriveScheme implements ControlScheme {
     private static CommandXboxController controller;
    
-    public static void configure(DriveTrain driveTrain, Door door, int port) {
+    public static void configure(DriveTrain driveTrain, int port) {
        
         controller = new CommandXboxController(port);
 
        
-        configureButtons(driveTrain, door, port);
+        configureButtons(driveTrain, port);
     }
 
     /**
@@ -44,25 +44,15 @@ public class DriveScheme implements ControlScheme {
      * @param swerveDrive The SwerveDrive object being configured.
      * @param port        The controller port of the driving controller.
      */
-    private static void configureButtons(DriveTrain driveTrain, Door door, int port) {
+    private static void configureButtons(DriveTrain driveTrain,  int port) {
   RunCommand VroomDefaultVroom = new RunCommand(()->{
-      driveTrain.drive(controller.getLeftY(), controller.getLeftX());
+      driveTrain.drive(controller.getLeftY(), controller.getRightX());
 
     }, driveTrain);
 
     driveTrain.setDefaultCommand(VroomDefaultVroom);
 
-    if (door.isUp()){
-        controller.a().onTrue(door.doorDown());
-    }
-    else
-    {             
-        controller.a().onTrue(door.doorUp());
-    }
-
-    controller.rightTrigger().onTrue(door.halt());
-    RunCommand doorRunCommand = new RunCommand(()->doorManual(controller.getRightY()));
-    door.setDefaultCommand(doorRunCommand);
+    
     
         // // controller.b().onTrue(runOnce(() -> toggleFieldCentric()));
         // controller.a().onTrue(runOnce(() -> swerveDrive.zeroHeading()));
@@ -87,10 +77,7 @@ public class DriveScheme implements ControlScheme {
 
     }
 
-    private static Command doorManual(double doorSpeed) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'doorManual'");
-    }
+    
 
     /**
      * Toggle field centric and robot centric driving.

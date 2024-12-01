@@ -20,19 +20,20 @@ public class DriveTrain extends SubsystemBase{
     CCSparkMax frontRight = new CCSparkMax ("front right", "fr", Constants.MotorConstants.FRONT_RIGHT, MotorType.kBrushless, IdleMode.kBrake, Constants.MotorConstants.FRONT_RIGHT_REVERSE);
     CCSparkMax backLeft = new CCSparkMax ("back left", "bl", Constants.MotorConstants.BACK_LEFT, MotorType.kBrushless, IdleMode.kBrake, Constants.MotorConstants.BACK_LEFT_REVERSE);
     CCSparkMax backRight = new CCSparkMax ("back right", "br", Constants.MotorConstants.BACK_RIGHT, MotorType.kBrushless, IdleMode.kBrake, Constants.MotorConstants.BACK_RIGHT_REVERSE);
-    DifferentialDrive frontDifferentialDrive = new DifferentialDrive (frontLeft, frontRight);
-    DifferentialDrive backDifferentialDrive = new DifferentialDrive(backLeft, backRight);
-    public void difDrive (double moveSpeed, double turnSpeed){
-        if (turnSpeed>0.75||turnSpeed<-0.75){
-        frontDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0.5*turnSpeed);
-        backDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0.5*turnSpeed);
-        }
-        else {
-            frontDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0);
-        backDifferentialDrive.arcadeDrive(0.5*moveSpeed, 0);
-
-        }
-    }
+    public  DifferentialDrive diffDrive = new DifferentialDrive(
+        (double output) -> {
+            frontLeft.set(output);
+            backLeft.set(output);
+            },
+        (double output) -> {
+            frontRight.set(output);
+            backRight.set(output);
+        });
+    
+    public void difDrive(double moveSpeed, double turnSpeed){
+        diffDrive.arcadeDrive(moveSpeed, turnSpeed);
+     }
+   
     public Command drive (double moveSpeed, double turnSpeed){
         return this.run (()-> difDrive(moveSpeed, turnSpeed));
     }

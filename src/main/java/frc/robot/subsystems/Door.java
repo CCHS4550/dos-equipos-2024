@@ -21,16 +21,16 @@ public class Door extends SubsystemBase {
     public Door() {
         // Initialize motor and PID controller
         isUp = true;
-        pidController = new PIDController(0.6, 0, 0); // Set PID , adjust as needed
+        pidController = new PIDController(0.3, 0, 0); // Set PID , adjust as needed
         pidController.setTolerance(1.0); //tolerance
     }
 
     public void openDoor() {
-        moveToPosition(Constants.MechanismPositions.DOOR_UP_POSITION);
+        door.set(0.2);
     }
 
     public void closeDoor() {
-        moveToPosition(Constants.MechanismPositions.DOOR_DOWN_POSITION);
+       door.set(-0.2);
     }
 
     public void moveToPosition(double targetPosition) {
@@ -39,9 +39,7 @@ public class Door extends SubsystemBase {
         door.set(pidSet(targetPosition));
 
         // Stop the motor when it's close enough to the target
-        if (pidController.atSetpoint()) {
-            door.set(0.0);
-        }
+       
     }
 
     public boolean atGoal(double goal){
@@ -71,12 +69,12 @@ public class Door extends SubsystemBase {
     public Command doorUp(){
         isUp = true;
         //added the until because maybe the thing is not running for as long
-        return this.run(()->openDoor()).until(()-> atGoal(Constants.MechanismPositions.DOOR_DOWN_POSITION));
+        return this.run(()->openDoor()).withTimeout(0.75);
         // return this.run(()-> openDoor());
     }
     public Command doorDown(){
         isUp = false;
-        return this.run(()->closeDoor()).until(()-> atGoal(Constants.MechanismPositions.DOOR_UP_POSITION));
+        return this.run(()->closeDoor()).withTimeout(0.75);
         // return this.run(()->closeDoor());
     }
 

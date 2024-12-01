@@ -8,6 +8,7 @@ import static edu.wpi.first.wpilibj2.command.Commands.waitSeconds;
 import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.helpers.ControlScheme;
@@ -27,6 +28,9 @@ public class MechanismScheme implements ControlScheme {
                 controller = new CommandXboxController(port);
                 // controller = new CommandXboxController(3);
                 configureButtons(port, door);
+
+                Command doorRunCommand = door.doorManual(controller.getRightY());
+    door.setDefaultCommand(doorRunCommand);
                 // arm.setDefaultCommand(Commands.run(() -> arm.moveArm(OI.axis(1,
                 // ControlMap.L_JOYSTICK_VERTICAL) * 0.5,
                 // OI.axis(1, ControlMap.R_JOYSTICK_VERTICAL) * 0.5), arm));
@@ -63,6 +67,10 @@ public class MechanismScheme implements ControlScheme {
                 controller.leftBumper().whileTrue(door.manualDown());
                 
         }
+        // private static Command doorManual(double doorSpeed) {
+        //         //         TODO Auto-generated method stub
+        //                 throw new UnsupportedOperationException("Unimplemented method 'doorManual'");
+        //              }
 
         public static void periodic() {
                 

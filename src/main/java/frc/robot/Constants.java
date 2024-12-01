@@ -30,7 +30,7 @@ public final class Constants {
     public static boolean BACK_LEFT_REVERSE = true;
     public static final int BACK_RIGHT = 1;
     public static boolean BACK_RIGHT_REVERSE = false;
-    public static final int DOOR = 9;//3
+    public static final int DOOR = 9;
     public static boolean DOOR_REVERSE = true;
 
     

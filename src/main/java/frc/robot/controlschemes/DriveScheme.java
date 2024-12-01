@@ -45,13 +45,10 @@ public class DriveScheme implements ControlScheme {
      * @param port        The controller port of the driving controller.
      */
     private static void configureButtons(DriveTrain driveTrain,  int port) {
-  RunCommand VroomDefaultVroom = new RunCommand(()->{
-      driveTrain.drive(controller.getLeftY(), controller.getRightX());
+  
 
-    }, driveTrain);
-
-    driveTrain.setDefaultCommand(VroomDefaultVroom);
-
+        driveTrain.setDefaultCommand(
+            new RunCommand(()-> driveTrain.drive(controller.getLeftY(), controller.getRightX()), driveTrain));
     
     
         // // controller.b().onTrue(runOnce(() -> toggleFieldCentric()));
